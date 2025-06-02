@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تهنئة عيد الأضحى</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    @font-face {
+      font-family: 'Cairo';
+      src: url('Cairo-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  
+    body, input, button, canvas {
+      font-family: 'Cairo', sans-serif;
+      font-weight: normal;
+      font-style: normal;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      background: #f7f7f7;
+      -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      overflow: auto;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .canvas-wrapper {
+      width: 100%;
+      max-width: 768px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+    }
+
+    canvas {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    canvas#greetingCanvas {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    input#nameInput {
+      max-width: 768px;
+      width: 90%;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin: 20px auto;
+    }
+    @media (max-height: 700px) {
+      canvas {
+        height: 60vh;
+      }
+
+      h1 {
+        font-size: 1em;
+        margin: 10px 0;
+      }
+
+      input#nameInput {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="30cm_300ppi.png" alt="ITQAN Logo" style="position: absolute; top: 20px; right: 20px; width: 100px; height: auto; z-index: 10;">
+  <h1>أدخل اسمك لتخصيص بطاقة المعايدة</h1>
+  <input type="text" id="nameInput" placeholder="اكتب اسمك هنا">
+  <div class="canvas-wrapper">
+    <canvas id="greetingCanvas" width="768" height="1365"></canvas>
+    <canvas id="hiddenCanvas" width="768" height="1365" style="display:none;"></canvas>
+  </div>
+  <button onclick="downloadImage()">تنزيل المعايدة</button>
+
+  <script>
+    const displayCanvas = document.getElementById('greetingCanvas');
+    const displayCtx = displayCanvas.getContext('2d');
+    const hiddenCanvas = document.getElementById('hiddenCanvas');
+    const hiddenCtx = hiddenCanvas.getContext('2d');
+    const baseImage = new Image();
+    baseImage.src = 'ITQAN_eidadha.jpeg';
+
+    const nameInput = document.getElementById('nameInput');
+
+    const drawImageWithName = (name = '') => {
+      [ [displayCtx, displayCanvas], [hiddenCtx, hiddenCanvas] ].forEach(([ctx, canvas]) => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
+        ctx.font = 'bold 36px Cairo';
+        ctx.fillStyle = 'white';
+        ctx.textAlign = 'center';
+        ctx.fillText(name, 570, 1060);
+      });
+    };
+
+    baseImage.onload = () => drawImageWithName(nameInput.value);
+
+    nameInput.addEventListener('input', () => {
+      drawImageWithName(nameInput.value);
+    });
+
+
+    const downloadImage = () => {
+      const name = nameInput.value.trim() || 'eid-greeting';
+      const link = document.createElement('a');
+      link.download = `${name}.png`;
+      link.href = hiddenCanvas.toDataURL();
+      link.click();
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+body {
+    font-family: Cairo, sans-serif;
+    text-align: center;
+    background: #f7f7f7;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+canvas {
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+input#nameInput {
+    display: block;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 768px;
+    box-sizing: border-box;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #0061a6; /* ITQAN brand color */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+  
+button:hover {
+    background-color: #004d85;
+}
+
+@font-face {
+    font-family: 'Cairo';
+    src: url('fonts/Cairo-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body, input, button, canvas {
+    font-family: 'Cairo', sans-serif;
+}
+
+.canvas-wrapper {
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    position: relative;
+}
+  
+canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
